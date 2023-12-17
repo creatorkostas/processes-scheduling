@@ -6,7 +6,7 @@ public class Cpu {
     private Task task;
 
     Cpu(int q){
-        this.q = q;
+        this.q = q; //yes
     }
 
     void addTask(Task task){this.task = task;}
