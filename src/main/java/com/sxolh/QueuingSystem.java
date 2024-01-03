@@ -31,4 +31,12 @@ public class QueuingSystem {
     Task getTask(int queue_id, int task_id){
         return queues.get(queue_id).getFromQueue(task_id);
     }
+
+    int NumOfTasks(){
+        int temp = 0;
+        for (Queue queue : queues) {
+            temp += queue.getNumOfTask();
+        }
+        return temp;
+    }
 }

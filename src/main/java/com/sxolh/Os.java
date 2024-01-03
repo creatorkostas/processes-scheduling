@@ -33,4 +33,8 @@ public class Os{
         queues.updateQueuesWaintingTime();
         return task;
     }
+
+    int GetTasksNumber(){
+        return queues.NumOfTasks();
+    }
 }

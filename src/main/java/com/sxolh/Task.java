@@ -52,5 +52,6 @@ public class Task {
     void setPriority(int priority){this.priority = priority;}
     void setTaskDone(){this.done = true;}
     void setState(int state){this.state = state;}
+    boolean getTaskDone(){return this.done;}
 
 }

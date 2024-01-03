@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
-    static private int num_of_tasks = 2;
+    static private int num_of_tasks = 5;
     static private int num_of_queues = 2;
-    static private int max_arrival_time = 2;
-    static private int max_execution_time = 2;
-    static private int max_IO_operations = 2;
+    static private int max_arrival_time = 10;
+    static private int max_execution_time = 15;
+    static private int max_IO_operations = 5;
 
 
     public static void main(String[] args) {
         //TODO fix rundom negative numbers
-        System.out.println("Hello world!");
-
+        
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> oi = new ArrayList<Integer>();
@@ -25,7 +24,7 @@ public class Main {
         for(int i=0;i<=num_of_tasks;i++){ 
             num_of_io_operations = new Random().nextInt(max_IO_operations);
             arival_time = new Random().nextInt(max_arrival_time);
-            execution_time = new Random().nextInt(max_execution_time);
+            execution_time = new Random().nextInt(max_execution_time)+1;
             priority = new Random().nextInt(num_of_queues);
             for(int j=0;j<num_of_io_operations;j++){
                 oi.add(new Random().nextInt(execution_time));
@@ -39,20 +38,29 @@ public class Main {
         Cpu cpu = new Cpu(2);
         Task cpu_task;
         
+        int done_tasks = 0;
         //Run
         int cycle = 0;
         Task task_to_run = null;
+        System.out.println("Hello world!");
         while (true) {
             System.out.println(cycle);
             //If the arrival time from the task has come put the task into the correct queue
+
             for(Task task: tasks){
                 if(task.getArivalTime() == cycle){
                     os.putToQueue(task);
                 }
+                if(task.getTaskDone()){done_tasks++;}
             }
+            if (os.GetTasksNumber() == 0) {
+                cycle++;
+                continue;
+            }
+            if(done_tasks == num_of_tasks){break;}
             
             task_to_run = os.getTaskToRun();
-            System.out.println(task_to_run.hashCode());
+            // System.out.println(task_to_run.hashCode());
             //Update the waiting time of the tasks
             // queues.updateQueuesWaintingTime(); //Went to OS functionality
             

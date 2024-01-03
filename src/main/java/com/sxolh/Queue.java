@@ -16,6 +16,7 @@ public class Queue {
     }
 
     Task getFromQueue(int task_id){
+        if(tasks.size() == 0) return null;
         Task temp = tasks.get(task_id);
         tasks.remove(task_id);
         return temp;
