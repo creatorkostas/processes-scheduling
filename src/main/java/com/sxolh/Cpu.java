@@ -18,6 +18,9 @@ public class Cpu {
 
     Task run(){
         Task temp;
+        if (task == null) {
+            return null;
+        }
         int responce = task.execute();
         if (responce == 1) { //IO operation
             this.task.setState(1);
@@ -28,7 +31,7 @@ public class Cpu {
         }
         else if(responce == 3) { //done
             this.task.setState(3);
-            
+            this.task.setTaskDone();
             temp = this.task;
             this.task = null;
             return temp;

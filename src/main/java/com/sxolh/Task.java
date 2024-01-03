@@ -54,4 +54,19 @@ public class Task {
     void setState(int state){this.state = state;}
     boolean getTaskDone(){return this.done;}
 
+    @Override
+    public String toString(){
+        return  "execution_time: "+ execution_time +
+                "\nstep: "+ step +
+                "\ntime_remaining: "+ time_remaining +
+                "\nwaiting_time: "+ waiting_time +
+                "\narival_time: "+ arival_time +
+                "\nfirst_responce_time: "+ first_responce_time +
+                "\nfirst_responce: "+ first_responce +
+                "\npriority: "+ priority +
+                "\nio: "+ io +
+                "\ndone: "+ done +
+                "\nstate: "+ state;
+    }
+
 }

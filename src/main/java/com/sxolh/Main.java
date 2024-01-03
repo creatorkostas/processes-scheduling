@@ -1,14 +1,23 @@
 package com.sxolh;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Main {
     static private int num_of_tasks = 5;
-    static private int num_of_queues = 2;
+    static private int num_of_queues = 1;
     static private int max_arrival_time = 10;
     static private int max_execution_time = 15;
-    static private int max_IO_operations = 5;
+    static private int max_IO_operations = 8;
+    static private int max_cycle = 1000;
+
+    static ArrayList<Integer> TiedUpIO(ArrayList<Integer> io){
+        ArrayList<Integer> temp;
+        temp = io;
+        Collections.sort(temp);
+        return temp;
+    }
 
 
     public static void main(String[] args) {
@@ -16,20 +25,23 @@ public class Main {
         
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
-        ArrayList<Integer> oi = new ArrayList<Integer>();
+        ArrayList<Integer> io = new ArrayList<Integer>();
         int num_of_io_operations;
         int arival_time;
         int execution_time;
         int priority;
         for(int i=0;i<=num_of_tasks;i++){ 
+            io = new ArrayList<Integer>();
             num_of_io_operations = new Random().nextInt(max_IO_operations);
             arival_time = new Random().nextInt(max_arrival_time);
             execution_time = new Random().nextInt(max_execution_time)+1;
             priority = new Random().nextInt(num_of_queues);
             for(int j=0;j<num_of_io_operations;j++){
-                oi.add(new Random().nextInt(execution_time));
+                io.add(new Random().nextInt(execution_time));
             }
-            tasks.add(new Task(arival_time, execution_time, priority, oi));
+
+            io = TiedUpIO(io);
+            tasks.add(new Task(arival_time, execution_time, priority, io));
         }
 
         //Create the queues
@@ -53,11 +65,14 @@ public class Main {
                 }
                 if(task.getTaskDone()){done_tasks++;}
             }
+            if (max_cycle == cycle) {
+                break;
+            }
+            if(done_tasks == num_of_tasks){break;}
             if (os.GetTasksNumber() == 0) {
                 cycle++;
                 continue;
             }
-            if(done_tasks == num_of_tasks){break;}
             
             task_to_run = os.getTaskToRun();
             // System.out.println(task_to_run.hashCode());
@@ -74,5 +89,10 @@ public class Main {
             // if(cpu_res == 2 || cpu_res == 1) queues.addToQueue(null);            
             cycle++;
         }
+        for(Task task: tasks){
+            System.out.println("----------------------------------------------");
+            System.out.println(task.toString());
+        }
+        os.printDoneTasks();
     }
 }

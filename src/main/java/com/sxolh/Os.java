@@ -1,7 +1,10 @@
 package com.sxolh;
 
+import java.util.ArrayList;
+
 public class Os{
     private QueuingSystem queues;
+    private ArrayList<Task> done_tasks;
     private boolean getNewTask = true;
 
     Os(int num_of_queues){
@@ -13,6 +16,10 @@ public class Os{
             getNewTask = false;
             return;
         }
+        if(task.getTaskDone()) {
+            done_tasks.add(task);
+            return;
+        } 
         getNewTask = true;
         int num_of_queues = queues.getNumOfQueues();
         int priority = task.getPriority();
@@ -36,5 +43,12 @@ public class Os{
 
     int GetTasksNumber(){
         return queues.NumOfTasks();
+    }
+
+    void printDoneTasks(){
+        for (Task done_task : done_tasks) {
+            System.out.println(done_task.toString());
+        }
+        return;
     }
 }
