@@ -9,21 +9,42 @@ public class Cpu {
         this.q = q; //yes
     }
 
-    void addTask(Task task){this.task = task;}
+    void addTask(Task task){
+        if(task != null){
+            this.task = task;
+            this.current_q = 0;
+        }
+    }
 
-    int run(){
+    Task run(){
+        Task temp;
         int responce = task.execute();
-        current_q += 1;
-        if (responce == 1) {
-            task = null;
-            return 2;
+        if (responce == 1) { //IO operation
+            this.task.setState(1);
+            
+            temp = this.task;
+            this.task = null;
+            return temp;
+        }
+        else if(responce == 3) { //done
+            this.task.setState(3);
+            
+            temp = this.task;
+            this.task = null;
+            return temp;
         }
         else if(current_q == q) {
-            task=null;
-            return 1;
-        };
+            this.task.setState(2);
 
-        return 0;
+            temp = this.task;
+            this.task = null;
+            return temp;
+        }
+        else{
+            current_q += 1;
+            this.task.setState(0);
+            return null;
+        }
     }
 
 }

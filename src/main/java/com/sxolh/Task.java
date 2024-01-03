@@ -12,6 +12,8 @@ public class Task {
     private boolean first_responce = false;
     private int priority;
     private ArrayList<Integer> io;
+    private boolean done = false;
+    private int state = 0;
 
     Task(int arival_time, int execution_time, int priority, ArrayList<Integer> io){
         this.priority = priority;
@@ -24,16 +26,19 @@ public class Task {
     }
 
     int execute(){
-        if(waiting_time != 0) waiting_time -= 1;
+        // if(waiting_time != 0) waiting_time -= 1; //Because before this execute the update but for this task is not supposed
         if (!first_responce) {
-            first_responce_time = waiting_time;
+            this.first_responce_time = waiting_time;
             first_responce = true;
         }
-        step += 1;
         time_remaining -= 1;
+        step += 1;
         if(io.contains(step)) return 1;
-        else return 0;
+        if(execution_time - time_remaining == 0) return 3; //done
+        return 0;
     }
+
+    void max_q(){}
 
     void update(){
         waiting_time += 1;
@@ -42,7 +47,10 @@ public class Task {
 
 
     int getPriority(){return priority;}
+    int getState(){return state;}
     int getArivalTime(){return arival_time;}
     void setPriority(int priority){this.priority = priority;}
+    void setTaskDone(){this.done = true;}
+    void setState(int state){this.state = state;}
 
 }

@@ -2,20 +2,24 @@ package com.sxolh;
 
 import java.util.ArrayList;
 
-public class Queues {
+public class Queue {
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
-    Queues(){}
+    Queue(){}
 
     void addToQueue(Task task){tasks.add(task);}
-
-    void removeFromQueue(){
-        if(!tasks.isEmpty()) tasks.remove(0);
-    }
 
     void updateWaitingTime(){
         for (Task task : tasks) {
             task.update();
         }
     }
+
+    Task getFromQueue(int task_id){
+        Task temp = tasks.get(task_id);
+        tasks.remove(task_id);
+        return temp;
+    }
+
+    int getNumOfTask(){return tasks.size();}
 }

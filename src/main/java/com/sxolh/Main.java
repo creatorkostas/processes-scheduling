@@ -12,6 +12,7 @@ public class Main {
 
 
     public static void main(String[] args) {
+        //TODO fix rundom negative numbers
         System.out.println("Hello world!");
 
         //Create the tasks
@@ -33,41 +34,37 @@ public class Main {
         }
 
         //Create the queues
-        ArrayList<Queues> queues = new ArrayList<Queues>();
-        for(int i=0;i<=num_of_queues;i++){ queues.add(null);}
+        Os os = new Os(num_of_queues);
 
         Cpu cpu = new Cpu(2);
-        int cpu_res;
-
-
+        Task cpu_task;
+        
         //Run
         int cycle = 0;
+        Task task_to_run = null;
         while (true) {
-
+            System.out.println(cycle);
             //If the arrival time from the task has come put the task into the correct queue
             for(Task task: tasks){
                 if(task.getArivalTime() == cycle){
-                    priority = Os.putToQueue(task, num_of_queues);
-                    queues.get(priority).addToQueue(task);
+                    os.putToQueue(task);
                 }
             }
-
+            
+            task_to_run = os.getTaskToRun();
+            System.out.println(task_to_run.hashCode());
+            //Update the waiting time of the tasks
+            // queues.updateQueuesWaintingTime(); //Went to OS functionality
+            
             //the dispacher get a task from the queue and put it in the cpu and remove it form the queue
 
-            //Update the waiting time of the tasks
-            for(Queues queue : queues){
-                queue.updateWaitingTime();
-            }
+            cpu.addTask(task_to_run);
             
-            
-            cpu_res = cpu.run();
-            //Task has todo IO operation
-            if(cpu_res == 2) cpu.addTask(null);
-            //Q time in effect
-            else if(cpu_res == 1) cpu.addTask(null);
-
-            
-            
+            cpu_task = cpu.run();
+            os.putToQueue(cpu_task);
+            //Task has todo IO operation or Q time in effect
+            // if(cpu_res == 2 || cpu_res == 1) queues.addToQueue(null);            
+            cycle++;
         }
     }
 }
