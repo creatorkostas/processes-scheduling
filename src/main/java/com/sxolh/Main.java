@@ -5,12 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Main {
-    static private int num_of_tasks = 1;
-    static private int num_of_queues = 1;
-    static private int max_arrival_time = 10;
-    static private int max_execution_time = 15;
-    static private int max_IO_operations = 8;
-    static private int max_cycle = 1000;
+
 
     static ArrayList<Integer> TiedUpIO(ArrayList<Integer> io){
         ArrayList<Integer> temp;
@@ -22,7 +17,12 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO fix rundom negative numbers
-        
+        int num_of_tasks = 4;
+        int num_of_queues = 1;
+        int max_arrival_time = 10;
+        int max_execution_time = 15;
+        int max_IO_operations = 8;
+        int max_cycle = 1000000;
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
@@ -36,9 +36,9 @@ public class Main {
             arival_time = new Random().nextInt(max_arrival_time);
             execution_time = new Random().nextInt(max_execution_time)+1;
             priority = new Random().nextInt(num_of_queues);
-            // for(int j=0;j<num_of_io_operations;j++){
-            //     io.add(new Random().nextInt(execution_time));
-            // }
+            for(int j=0;j<num_of_io_operations;j++){
+                io.add(new Random().nextInt(execution_time));
+            }
 
             io = TiedUpIO(io);
             tasks.add(new Task(arival_time, execution_time, priority, io));
@@ -63,7 +63,7 @@ public class Main {
                 if(task.getArivalTime() == cycle){
                     os.putToQueue(task);
                 }
-                if(task.getTaskDone()){done_tasks++;}
+                if(task.getTaskDone()){done_tasks = done_tasks + 1;}
             }
             if (max_cycle == cycle) {
                 break;

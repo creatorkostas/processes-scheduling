@@ -21,7 +21,7 @@ public class Task {
         this.time_remaining = execution_time;
         this.arival_time = arival_time;
         this.waiting_time = 0;
-        this.step = 0;
+        this.step = -1;
         this.io = io;
     }
 
@@ -32,9 +32,9 @@ public class Task {
             first_responce = true;
         }
         time_remaining = time_remaining - 1;
-        if(io.contains(step)) return 1;
-        if(time_remaining == 0) return 3; //done
         step += 1;
+        if(io.contains(step)) { return 1;}
+        if(time_remaining == 0) return 3; //done
         return 0;
     }
 
@@ -57,7 +57,7 @@ public class Task {
     @Override
     public String toString(){
         return  "execution_time: "+ execution_time +
-                "\nstep: "+ step +
+                "\nstep: "+ (step +1) +
                 "\ntime_remaining: "+ time_remaining +
                 "\nwaiting_time: "+ waiting_time +
                 "\narival_time: "+ arival_time +
