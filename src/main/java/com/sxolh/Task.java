@@ -33,8 +33,8 @@ public class Task {
         }
         time_remaining = time_remaining - 1;
         step += 1;
-        if(io.contains(step)) { return 1;}
         if(time_remaining == 0) return 3; //done
+        if(io.contains(step)) { return 1;}
         return 0;
     }
 

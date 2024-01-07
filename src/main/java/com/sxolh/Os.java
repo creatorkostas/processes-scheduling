@@ -18,6 +18,7 @@ public class Os{
         }
         if(task.getTaskDone() || task.getState() == 3) {
             done_tasks.add(task);
+            getNewTask = true;
             return;
         } 
         getNewTask = true;

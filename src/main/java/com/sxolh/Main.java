@@ -22,15 +22,16 @@ public class Main {
         int max_arrival_time = 10;
         int max_execution_time = 15;
         int max_IO_operations = 8;
-        int max_cycle = 1000000;
+        int max_cycle = 100000000;
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
+        ArrayList<Task> done = new ArrayList<Task>();
         int num_of_io_operations;
         int arival_time;
         int execution_time;
         int priority;
-        for(int i=0;i<=num_of_tasks;i++){ 
+        for(int i=0;i<num_of_tasks;i++){ 
             io = new ArrayList<Integer>();
             num_of_io_operations = new Random().nextInt(max_IO_operations);
             arival_time = new Random().nextInt(max_arrival_time);
@@ -58,17 +59,17 @@ public class Main {
         while (true) {
             // System.out.println(cycle);
             //If the arrival time from the task has come put the task into the correct queue
-
-            for(Task task: tasks){
+            for(int i=0; i<tasks.size();i++) {
+                Task task = tasks.get(i);
                 if(task.getArivalTime() == cycle){
                     os.putToQueue(task);
                 }
-                if(task.getTaskDone()){done_tasks = done_tasks + 1;}
+                if(task.getTaskDone()){done.add(task); tasks.remove(i);}
             }
             if (max_cycle == cycle) {
                 break;
             }
-            if(done_tasks == num_of_tasks){break;}
+            if(done.size() == num_of_tasks){break;}
             if (os.GetTasksNumber() == 0) {
                 cycle++;
                 continue;
@@ -93,7 +94,7 @@ public class Main {
         //     System.out.println("----------------------------------------------");
         //     System.out.println(task.toString());
         // }
-        System.out.println(tasks.size());
+        System.out.println(num_of_tasks);
         os.printDoneTasks();
     }
 }
