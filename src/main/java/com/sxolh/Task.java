@@ -31,10 +31,10 @@ public class Task {
             this.first_responce_time = waiting_time;
             first_responce = true;
         }
-        time_remaining -= 1;
-        step += 1;
+        time_remaining = time_remaining - 1;
         if(io.contains(step)) return 1;
-        if(execution_time - time_remaining == 0) return 3; //done
+        if(time_remaining == 0) return 3; //done
+        step += 1;
         return 0;
     }
 

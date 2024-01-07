@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Main {
-    static private int num_of_tasks = 5;
+    static private int num_of_tasks = 1;
     static private int num_of_queues = 1;
     static private int max_arrival_time = 10;
     static private int max_execution_time = 15;
@@ -36,9 +36,9 @@ public class Main {
             arival_time = new Random().nextInt(max_arrival_time);
             execution_time = new Random().nextInt(max_execution_time)+1;
             priority = new Random().nextInt(num_of_queues);
-            for(int j=0;j<num_of_io_operations;j++){
-                io.add(new Random().nextInt(execution_time));
-            }
+            // for(int j=0;j<num_of_io_operations;j++){
+            //     io.add(new Random().nextInt(execution_time));
+            // }
 
             io = TiedUpIO(io);
             tasks.add(new Task(arival_time, execution_time, priority, io));
@@ -56,7 +56,7 @@ public class Main {
         Task task_to_run = null;
         System.out.println("Hello world!");
         while (true) {
-            System.out.println(cycle);
+            // System.out.println(cycle);
             //If the arrival time from the task has come put the task into the correct queue
 
             for(Task task: tasks){
@@ -89,10 +89,11 @@ public class Main {
             // if(cpu_res == 2 || cpu_res == 1) queues.addToQueue(null);            
             cycle++;
         }
-        for(Task task: tasks){
-            System.out.println("----------------------------------------------");
-            System.out.println(task.toString());
-        }
+        // for(Task task: tasks){
+        //     System.out.println("----------------------------------------------");
+        //     System.out.println(task.toString());
+        // }
+        System.out.println(tasks.size());
         os.printDoneTasks();
     }
 }

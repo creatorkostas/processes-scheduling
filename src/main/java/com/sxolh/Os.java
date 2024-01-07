@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Os{
     private QueuingSystem queues;
-    private ArrayList<Task> done_tasks;
+    private ArrayList<Task> done_tasks = new ArrayList<Task>();
     private boolean getNewTask = true;
 
     Os(int num_of_queues){
@@ -46,9 +46,16 @@ public class Os{
     }
 
     void printDoneTasks(){
-        for (Task done_task : done_tasks) {
-            System.out.println(done_task.toString());
+        try {
+            for (Task done_task : done_tasks) {
+                System.out.println("---------------------------------------------------");
+                System.out.println(done_task.toString());
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No task is done!");
+            return;
         }
+        
         return;
     }
 }
