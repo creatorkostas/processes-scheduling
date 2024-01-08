@@ -32,6 +32,8 @@ public class QueuingSystem {
         return queues.get(queue_id).getFromQueue(task_id);
     }
 
+    int IOTasks(){return ioQueue.getNumOfTask();}
+
     int NumOfTasks(){
         int temp = 0;
         for (Queue queue : queues) {

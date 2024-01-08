@@ -17,16 +17,16 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO fix rundom negative numbers
-        int num_of_tasks = 4;
+        int num_of_tasks = 10;
         int num_of_queues = 1;
         int max_arrival_time = 10;
-        int max_execution_time = 5;
+        int max_execution_time = 10;
         int max_IO_operations = 3;
         int max_cycle = 1000;
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
-        ArrayList<Task> done = new ArrayList<Task>();
+        // ArrayList<Task> done = new ArrayList<Task>();
         int num_of_io_operations;
         int arival_time;
         int execution_time;
@@ -52,7 +52,7 @@ public class Main {
         Cpu cpu = new Cpu(2);
         Task cpu_task;
         
-        int done_tasks = 0;
+        // int done_tasks = 0;
         //Run
         int cycle = 0;
         Task task_to_run = null;
@@ -92,13 +92,19 @@ public class Main {
             // if(cpu_res == 2 || cpu_res == 1) queues.addToQueue(null);            
             cycle++;
         }
-        // for(Task task: tasks){
-        //     System.out.println("----------------------------------------------");
-        //     System.out.println(task.toString());
-        // }
+        
         System.out.println(cycle);
         System.out.println(num_of_tasks);
         System.out.println(os.getNumOfDoneTasks());
-        os.printDoneTasks();
+        if(os.getNumOfDoneTasks() != num_of_tasks){
+            System.out.println("----------------------------------------------");
+            System.out.println("Task still in IO Queue: "+os.getIOqueueTasks());
+            System.out.println("----------------------------------------------");
+            // for (Task task : tasks) {
+            //     System.out.println("----------------------------------------------");
+            //     System.out.println(task);
+            // }
+        }
+        // os.printDoneTasks();
     }
 }

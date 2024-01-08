@@ -51,6 +51,8 @@ public class Os{
         return queues.NumOfTasks();
     }
 
+    int getIOqueueTasks(){return queues.IOTasks();}
+
     int getNumOfDoneTasks(){
         int temp = 0;
         try {
