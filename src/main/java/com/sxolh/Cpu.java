@@ -18,10 +18,10 @@ public class Cpu {
 
     Task run(){
         Task temp;
-        if (task == null) {
-            return null;
-        }
-        int responce = task.execute();
+        // if (task == null) {
+        //     return null;
+        // }
+        int responce = this.task.execute();
         if (responce == 1) { //IO operation
             this.task.setState(1);
             
@@ -46,6 +46,13 @@ public class Cpu {
         else{
             current_q += 1;
             this.task.setState(0);
+            if(current_q == q) {
+                this.task.setState(2);
+
+                temp = this.task;
+                this.task = null;
+                return temp;
+            }
             return null;
         }
     }

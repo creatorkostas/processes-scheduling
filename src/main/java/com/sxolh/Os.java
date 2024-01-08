@@ -20,8 +20,9 @@ public class Os{
             done_tasks.add(task);
             getNewTask = true;
             return;
-        } 
-        getNewTask = true;
+        }
+        if(task.getFirstResponce()) getNewTask=true;
+        
         int num_of_queues = queues.getNumOfQueues();
         int priority = task.getPriority();
         int valid_priority = priority;
@@ -29,7 +30,11 @@ public class Os{
         else if(priority<0){priority = 0;}
         task.setPriority(valid_priority);
         queues.addToQueue(task, valid_priority);
+
+        
     }
+
+    boolean getGetNewTask(){return getNewTask;}
     
 
     Task getTaskToRun(){
@@ -46,6 +51,19 @@ public class Os{
         return queues.NumOfTasks();
     }
 
+    int getNumOfDoneTasks(){
+        int temp = 0;
+        try {
+            for (Task done_task : done_tasks) {
+                temp++;
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No task is done!");
+            return 0;
+        }
+        return temp;
+    }
+
     void printDoneTasks(){
         try {
             for (Task done_task : done_tasks) {
@@ -56,7 +74,5 @@ public class Os{
             System.out.println("No task is done!");
             return;
         }
-        
-        return;
     }
 }

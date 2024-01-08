@@ -20,9 +20,9 @@ public class Main {
         int num_of_tasks = 4;
         int num_of_queues = 1;
         int max_arrival_time = 10;
-        int max_execution_time = 15;
-        int max_IO_operations = 8;
-        int max_cycle = 100000000;
+        int max_execution_time = 5;
+        int max_IO_operations = 3;
+        int max_cycle = 1000;
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
@@ -35,6 +35,7 @@ public class Main {
             io = new ArrayList<Integer>();
             num_of_io_operations = new Random().nextInt(max_IO_operations);
             arival_time = new Random().nextInt(max_arrival_time);
+            // arival_time = 1;
             execution_time = new Random().nextInt(max_execution_time)+1;
             priority = new Random().nextInt(num_of_queues);
             for(int j=0;j<num_of_io_operations;j++){
@@ -42,7 +43,7 @@ public class Main {
             }
 
             io = TiedUpIO(io);
-            tasks.add(new Task(arival_time, execution_time, priority, io));
+            tasks.add(new Task(i,arival_time, execution_time, priority, io));
         }
 
         //Create the queues
@@ -63,14 +64,15 @@ public class Main {
                 Task task = tasks.get(i);
                 if(task.getArivalTime() == cycle){
                     os.putToQueue(task);
+                    // tasks.remove(i);
                 }
-                if(task.getTaskDone()){done.add(task); tasks.remove(i);}
+                // if(task.getTaskDone()){done.add(task); tasks.remove(i);}
             }
             if (max_cycle == cycle) {
                 break;
             }
-            if(done.size() == num_of_tasks){break;}
-            if (os.GetTasksNumber() == 0) {
+            if(os.getNumOfDoneTasks() == num_of_tasks){break;}
+            if (os.GetTasksNumber() == 0 && os.getGetNewTask()) {
                 cycle++;
                 continue;
             }
@@ -94,7 +96,9 @@ public class Main {
         //     System.out.println("----------------------------------------------");
         //     System.out.println(task.toString());
         // }
+        System.out.println(cycle);
         System.out.println(num_of_tasks);
+        System.out.println(os.getNumOfDoneTasks());
         os.printDoneTasks();
     }
 }
