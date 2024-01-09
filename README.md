@@ -8,3 +8,6 @@ or run
 ```bash
 java -jar ./processes-scheduling.jar
 ```
+
+### Disclaimer
+Some times a process does not come out of IO queue because it execute the IO in random time
