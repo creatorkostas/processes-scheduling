@@ -57,6 +57,9 @@ public class Task {
     int getState(){return state;}
     int getArivalTime(){return arival_time;}
     boolean getFirstResponce(){return first_responce;}
+    int getFirstResponceTime(){return first_responce_time;}
+    int getWattingTime(){return waiting_time;}
+    int getExecutionTime(){return execution_time;}
     void setPriority(int priority){this.priority = priority;}
     void setTaskDone(){this.done = true;}
     void setState(int state){this.state = state;}

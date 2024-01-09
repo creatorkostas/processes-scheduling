@@ -17,12 +17,13 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO fix rundom negative numbers
-        int num_of_tasks = 10;
-        int num_of_queues = 1;
-        int max_arrival_time = 10;
-        int max_execution_time = 10;
+        int num_of_tasks = 100;
+        int num_of_queues = 5;
+        int max_arrival_time = 20;
+        int max_execution_time = 15;
         int max_IO_operations = 3;
         int max_cycle = 1000;
+        int MAX_Q = 2;
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
@@ -49,7 +50,7 @@ public class Main {
         //Create the queues
         Os os = new Os(num_of_queues);
 
-        Cpu cpu = new Cpu(2);
+        Cpu cpu = new Cpu(MAX_Q);
         Task cpu_task;
         
         // int done_tasks = 0;
@@ -87,15 +88,14 @@ public class Main {
             cpu.addTask(task_to_run);
             
             cpu_task = cpu.run();
-            os.putToQueue(cpu_task);
-            //Task has todo IO operation or Q time in effect
-            // if(cpu_res == 2 || cpu_res == 1) queues.addToQueue(null);            
+            os.putToQueue(cpu_task);     
             cycle++;
         }
         
         System.out.println(cycle);
         System.out.println(num_of_tasks);
         System.out.println(os.getNumOfDoneTasks());
+        os.PrintAverages();
         if(os.getNumOfDoneTasks() != num_of_tasks){
             System.out.println("----------------------------------------------");
             System.out.println("Task still in IO Queue: "+os.getIOqueueTasks());
