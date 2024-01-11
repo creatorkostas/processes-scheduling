@@ -22,7 +22,7 @@ public class Main {
         int max_arrival_time = 20;
         int max_execution_time = 15;
         int max_IO_operations = 3;
-        int max_cycle = 1000;
+        int max_cycle = 10000;
         int MAX_Q = 2;
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -92,9 +92,10 @@ public class Main {
             cycle++;
         }
         
-        System.out.println(cycle);
-        System.out.println(num_of_tasks);
-        System.out.println(os.getNumOfDoneTasks());
+        System.out.println("CPU cycles: "+cycle);
+        if(cycle == max_cycle) System.out.println("Max cycle number has reached!");
+        System.out.println("Number of tasks: "+num_of_tasks);
+        System.out.println("Number of finished tasks: "+os.getNumOfDoneTasks());
         os.PrintAverages();
         if(os.getNumOfDoneTasks() != num_of_tasks){
             System.out.println("----------------------------------------------");
