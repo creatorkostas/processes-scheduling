@@ -17,13 +17,35 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO fix rundom negative numbers
-        int num_of_tasks = 100;
+        System.out.println("How many tasks to create: ");
+        int num_of_tasks = UserInput.getInteger();
+
+        System.out.println("How many priority queues to be: ");
+        int num_of_queues = UserInput.getInteger();
+
+        System.out.println("Max arrival time for the processes: ");
+        int max_arrival_time = UserInput.getInteger();
+
+        System.out.println("Max execution time for the processes: ");
+        int max_execution_time = UserInput.getInteger();
+
+        System.out.println("Max IO operations for the processes: ");
+        int max_IO_operations = UserInput.getInteger();
+
+        System.out.println("Max CPU cycle (for not infinity runs): ");
+        int max_cycle = UserInput.getInteger();
+
+        System.out.println("CPU q (quantum) time: ");
+        int MAX_Q = UserInput.getInteger();
+
+        /*int num_of_tasks = 100;
         int num_of_queues = 5;
         int max_arrival_time = 20;
         int max_execution_time = 15;
         int max_IO_operations = 3;
         int max_cycle = 10000;
-        int MAX_Q = 2;
+        int MAX_Q = 2;*/
+
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
@@ -57,7 +79,7 @@ public class Main {
         //Run
         int cycle = 0;
         Task task_to_run = null;
-        System.out.println("Hello world!");
+        System.out.println("-----------------------------------------");
         while (true) {
             // System.out.println(cycle);
             //If the arrival time from the task has come put the task into the correct queue
