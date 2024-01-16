@@ -23,13 +23,13 @@ public class Main {
         System.out.println("How many priority queues to be: ");
         int num_of_queues = UserInput.getInteger();
 
-        System.out.println("Max arrival time for the processes: ");
+        System.out.println("Max arrival time for the processes (-1 eg. 1->0): ");
         int max_arrival_time = UserInput.getInteger();
 
-        System.out.println("Max execution time for the processes: ");
+        System.out.println("Max execution time for the processes (-1 eg. 1->0): ");
         int max_execution_time = UserInput.getInteger();
 
-        System.out.println("Max IO operations for the processes: ");
+        System.out.println("Max IO operations for the processes (-1 eg. 1->0): ");
         int max_IO_operations = UserInput.getInteger();
 
         System.out.println("Max CPU cycle (for not infinity runs): ");
@@ -68,6 +68,18 @@ public class Main {
             io = TiedUpIO(io);
             tasks.add(new Task(i,arival_time, execution_time, priority, io));
         }
+        
+        
+        
+        // io = new ArrayList<Integer>();
+        // io.add(0);
+        // tasks.add(new Task(0,0,5,4,io));
+        // tasks.add(new Task(0,2,2,1,io));
+        // tasks.add(new Task(0,4,10,3,io));
+        // tasks.add(new Task(0,6,4,2,io));
+
+        for(Task task: tasks) {System.out.println("----------------\n"+task.toString());}
+        System.out.println("----------------");
 
         //Create the queues
         Os os = new Os(num_of_queues);
@@ -75,7 +87,6 @@ public class Main {
         Cpu cpu = new Cpu(MAX_Q);
         Task cpu_task;
         
-        // int done_tasks = 0;
         //Run
         int cycle = 0;
         Task task_to_run = null;
@@ -87,9 +98,7 @@ public class Main {
                 Task task = tasks.get(i);
                 if(task.getArivalTime() == cycle){
                     os.putToQueue(task);
-                    // tasks.remove(i);
                 }
-                // if(task.getTaskDone()){done.add(task); tasks.remove(i);}
             }
             if (max_cycle == cycle) {
                 break;
@@ -101,10 +110,7 @@ public class Main {
             }
             
             task_to_run = os.getTaskToRun();
-            // System.out.println(task_to_run.hashCode());
-            //Update the waiting time of the tasks
-            // queues.updateQueuesWaintingTime(); //Went to OS functionality
-            
+
             //the dispacher get a task from the queue and put it in the cpu and remove it form the queue
 
             cpu.addTask(task_to_run);
@@ -114,6 +120,7 @@ public class Main {
             cycle++;
         }
         
+        System.out.println("----------------------------------------------");
         System.out.println("CPU cycles: "+cycle);
         if(cycle == max_cycle) System.out.println("Max cycle number has reached!");
         System.out.println("Number of tasks: "+num_of_tasks);
@@ -123,10 +130,6 @@ public class Main {
             System.out.println("----------------------------------------------");
             System.out.println("Task still in IO Queue: "+os.getIOqueueTasks());
             System.out.println("----------------------------------------------");
-            // for (Task task : tasks) {
-            //     System.out.println("----------------------------------------------");
-            //     System.out.println(task);
-            // }
         }
         // os.printDoneTasks();
     }

@@ -32,6 +32,7 @@ public class Task {
     }
 
     int execute(){
+        System.out.println("Running task: "+this.task_id);
         // if(waiting_time != 0) waiting_time -= 1; //Because before this execute the update but for this task is not supposed
         if (!first_responce) {
             this.first_responce_time = waiting_time;
