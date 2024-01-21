@@ -1,0 +1,14 @@
+#Tasks input
+coded_tasks: true
+auto: true
+
+# Simulation setting
+max_cycle: 999
+quantum_time: 2
+
+#Tasks generation setting
+num_of_tasks: 10
+num_of_queues: 4
+max_arrival_time: 10
+max_execution_time: 20
+max_IO_operations: 3

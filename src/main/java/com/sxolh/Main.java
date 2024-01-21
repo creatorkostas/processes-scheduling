@@ -1,5 +1,6 @@
 package com.sxolh;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -16,7 +17,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-        //TODO fix rundom negative numbers
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
@@ -28,14 +28,44 @@ public class Main {
         int max_IO_operations = Globals.MAX_IO_OPERATIONS;
         int max_cycle = Globals.MAX_CYCLE;
         int MAX_Q = Globals.MAX_Q;
+        boolean auto = Globals.AUTO;
+        boolean coded_tasks = Globals.CODED_TASKS;
+        YamlSetting setting;
+        try {
+            setting = new YamlSetting();
+            num_of_tasks = (Integer) setting.getValue("num_of_tasks");
+            num_of_queues = (Integer) setting.getValue("num_of_queues");
+            max_arrival_time = (Integer) setting.getValue("max_arrival_time");
+            max_execution_time = (Integer) setting.getValue("max_execution_time");
+            max_IO_operations = (Integer) setting.getValue("max_IO_operations");
+            max_cycle = (Integer) setting.getValue("max_cycle");
+            MAX_Q = (Integer) setting.getValue("quantum_time");
+            auto = (boolean) setting.getValue("auto");
+            coded_tasks = (boolean) setting.getValue("coded_tasks");
 
-        if (Globals.AUTO == true && Globals.CODED_TASKS == true) {
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Error loading setting. Using default setting (running with hard coded task)");
+            num_of_tasks = Globals.NUM_OF_TASK;
+            num_of_queues = Globals.NUM_OF_QUEUES;
+            max_arrival_time = Globals.MAX_ARRIVAL_TIME;
+            max_execution_time = Globals.MAX_EXECUTION_TIME;
+            max_IO_operations = Globals.MAX_IO_OPERATIONS;
+            max_cycle = Globals.MAX_CYCLE;
+            MAX_Q = Globals.MAX_Q;
+            auto = Globals.AUTO;
+            coded_tasks = Globals.CODED_TASKS;
+        }
+        //TODO fix rundom negative numbers
+        
+
+        if (auto == true && coded_tasks == true) {
             num_of_queues = 4;
             tasks.add(new Task(0,0,5,4,new ArrayList<Integer>(){{}} ));
             tasks.add(new Task(1,2,2,1,new ArrayList<Integer>(){{}} ));
             tasks.add(new Task(2,4,10,3,new ArrayList<Integer>(){{}} ));
             tasks.add(new Task(3,6,4,2,new ArrayList<Integer>(){{}} )); 
-        }else if (Globals.AUTO == false){
+        }else if (auto == false){
             System.out.println("How many tasks to create: ");
             num_of_tasks = UserInput.getInteger();
             

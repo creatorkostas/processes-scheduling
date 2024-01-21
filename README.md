@@ -1,24 +1,21 @@
 # processes-scheduling
 
-To this simulation you must clone the repository and run the command ```(with this method you can change Globals)```
-``` bash
-java -cp processes-scheduling/target/classes com.sxolh.Main 
-```
-or run
+To this simulation you must clone the repository and run the command
 ```bash
 java -jar ./processes-scheduling.jar
 ```
 
-## Globals
- - ```CODED_TASKS``` : Use hard coded task in Main.java
- - ```AUTO``` : Generate random values bases on the info of the below valiables
- - ```NUM_OF_TASK``` : Number of task to generate
- - ```NUM_OF_QUEUES``` : Max priority for the tasks
- - ```MAX_Q``` : CPU quantum time
- - ```MAX_ARRIVAL_TIME``` : Max allowed arrival time
- - ```MAX_EXECUTION_TIME``` : Max allowed exuecution time
- - ```MAX_IO_OPERATIONS``` : Max allowed IO operetions present in a task
- - ```MAX_CYCLE``` : Max simulation cycle
+### Setting
+Here you can change the simulation's setting
+ - ```coded_tasks (Default: true)``` : Use hard coded task in Main.java
+ - ```auto (Default: true)``` : Generate random values bases on the info of the below valiables
+ - ```max_cycle (Default: 999)``` : Max simulation cycle
+ - ```quantum_time (Default: 2)``` : CPU quantum time
+ - ```num_of_tasks (Default: 10)``` : Number of task to generate
+ - ```num_of_queues (Default: 4)``` : Max priority for the tasks
+ - ```max_arrival_time (Default: 10)``` : Max allowed arrival time
+ - ```max_execution_time (Default: 20)``` : Max allowed exuecution time
+ - ```max_IO_operations (Default: 3)``` : Max allowed IO operetions present in a task
 
 ### Disclaimer
 Some times a process does not come out of IO queue because it execute the IO in random time
