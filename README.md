@@ -5,8 +5,8 @@ To this simulation you must clone the repository and run the command
 java -jar ./processes-scheduling.jar
 ```
 
-### Setting
-Here you can change the simulation's setting
+### Settings
+Here you can change the simulation's settings
  - ```coded_tasks (Default: true)``` : Use hard coded task in Main.java
  - ```auto (Default: true)``` : Generate random values bases on the info of the below valiables
  - ```max_cycle (Default: 999)``` : Max simulation cycle
