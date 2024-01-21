@@ -16,12 +16,12 @@ public class Cpu {
         }
     }
 
-    Task run(){
+    Task run(int cycle){
         Task temp;
         // if (task == null) {
         //     return null;
         // }
-        int responce = this.task.execute();
+        int responce = this.task.execute(cycle);
         if (responce == 1) { //IO operation
             this.task.setState(1);
             

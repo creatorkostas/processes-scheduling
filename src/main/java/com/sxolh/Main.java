@@ -17,67 +17,88 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO fix rundom negative numbers
-        System.out.println("How many tasks to create: ");
-        int num_of_tasks = UserInput.getInteger();
-
-        System.out.println("How many priority queues to be: ");
-        int num_of_queues = UserInput.getInteger();
-
-        System.out.println("Max arrival time for the processes (-1 eg. 1->0): ");
-        int max_arrival_time = UserInput.getInteger();
-
-        System.out.println("Max execution time for the processes (-1 eg. 1->0): ");
-        int max_execution_time = UserInput.getInteger();
-
-        System.out.println("Max IO operations for the processes (-1 eg. 1->0): ");
-        int max_IO_operations = UserInput.getInteger();
-
-        System.out.println("Max CPU cycle (for not infinity runs): ");
-        int max_cycle = UserInput.getInteger();
-
-        System.out.println("CPU q (quantum) time: ");
-        int MAX_Q = UserInput.getInteger();
-
-        /*int num_of_tasks = 100;
-        int num_of_queues = 5;
-        int max_arrival_time = 20;
-        int max_execution_time = 15;
-        int max_IO_operations = 3;
-        int max_cycle = 10000;
-        int MAX_Q = 2;*/
-
         //Create the tasks
         ArrayList<Task> tasks = new ArrayList<Task>();
         ArrayList<Integer> io = new ArrayList<Integer>();
-        // ArrayList<Task> done = new ArrayList<Task>();
-        int num_of_io_operations;
-        int arival_time;
-        int execution_time;
-        int priority;
-        for(int i=0;i<num_of_tasks;i++){ 
-            io = new ArrayList<Integer>();
-            num_of_io_operations = new Random().nextInt(max_IO_operations);
-            arival_time = new Random().nextInt(max_arrival_time);
-            // arival_time = 1;
-            execution_time = new Random().nextInt(max_execution_time)+1;
-            priority = new Random().nextInt(num_of_queues);
-            for(int j=0;j<num_of_io_operations;j++){
-                io.add(new Random().nextInt(execution_time));
+
+        int num_of_tasks = Globals.NUM_OF_TASK;
+        int num_of_queues = Globals.NUM_OF_QUEUES;
+        int max_arrival_time = Globals.MAX_ARRIVAL_TIME;
+        int max_execution_time = Globals.MAX_EXECUTION_TIME;
+        int max_IO_operations = Globals.MAX_IO_OPERATIONS;
+        int max_cycle = Globals.MAX_CYCLE;
+        int MAX_Q = Globals.MAX_Q;
+
+        if (Globals.AUTO == true && Globals.CODED_TASKS == true) {
+            num_of_queues = 4;
+            tasks.add(new Task(0,0,5,4,new ArrayList<Integer>(){{}} ));
+            tasks.add(new Task(1,2,2,1,new ArrayList<Integer>(){{}} ));
+            tasks.add(new Task(2,4,10,3,new ArrayList<Integer>(){{}} ));
+            tasks.add(new Task(3,6,4,2,new ArrayList<Integer>(){{}} )); 
+        }else if (Globals.AUTO == false){
+            System.out.println("How many tasks to create: ");
+            num_of_tasks = UserInput.getInteger();
+            
+            System.out.println("How many priority queues to be: ");
+            num_of_queues = UserInput.getInteger();
+            
+            System.out.println("Max arrival time for the processes (-1 eg. 1->0): ");
+            max_arrival_time = UserInput.getInteger();
+            
+            System.out.println("Max execution time for the processes (-1 eg. 1->0): ");
+            max_execution_time = UserInput.getInteger();
+            
+            System.out.println("Max IO operations for the processes (-1 eg. 1->0): ");
+            max_IO_operations = UserInput.getInteger();
+            
+            System.out.println("Max CPU cycle (to prevent infinity execution): ");
+            max_cycle = UserInput.getInteger();
+            
+            System.out.println("CPU q (quantum) time: ");
+            MAX_Q = UserInput.getInteger();
+        
+            int num_of_io_operations;
+            int arival_time;
+            int execution_time;
+            int priority;
+            for(int i=0;i<num_of_tasks;i++){ 
+                io = new ArrayList<Integer>();
+                num_of_io_operations = new Random().nextInt(max_IO_operations);
+                arival_time = new Random().nextInt(max_arrival_time);
+                // arival_time = 1;
+                execution_time = new Random().nextInt(max_execution_time)+1;
+                priority = new Random().nextInt(num_of_queues);
+                for(int j=0;j<num_of_io_operations;j++){
+                    io.add(new Random().nextInt(execution_time));
+                }
+
+                io = TiedUpIO(io);
+                tasks.add(new Task(i,arival_time, execution_time, priority, io));
             }
+        }else{
+            int num_of_io_operations;
+            int arival_time;
+            int execution_time;
+            int priority;
+            for(int i=0;i<num_of_tasks;i++){ 
+                io = new ArrayList<Integer>();
+                num_of_io_operations = new Random().nextInt(max_IO_operations);
+                arival_time = new Random().nextInt(max_arrival_time);
+                // arival_time = 1;
+                execution_time = new Random().nextInt(max_execution_time)+1;
+                priority = new Random().nextInt(num_of_queues);
+                for(int j=0;j<num_of_io_operations;j++){
+                    io.add(new Random().nextInt(execution_time));
+                }
 
-            io = TiedUpIO(io);
-            tasks.add(new Task(i,arival_time, execution_time, priority, io));
+                io = TiedUpIO(io);
+                tasks.add(new Task(i,arival_time, execution_time, priority, io));
+            }
         }
-        
-        
-        
-        // io = new ArrayList<Integer>();
-        // io.add(0);
-        // tasks.add(new Task(0,0,5,4,io));
-        // tasks.add(new Task(0,2,2,1,io));
-        // tasks.add(new Task(0,4,10,3,io));
-        // tasks.add(new Task(0,6,4,2,io));
 
+        
+
+        num_of_tasks = tasks.size();
         for(Task task: tasks) {System.out.println("----------------\n"+task.toString());}
         System.out.println("----------------");
 
@@ -106,6 +127,7 @@ public class Main {
             if(os.getNumOfDoneTasks() == num_of_tasks){break;}
             if (os.GetTasksNumber() == 0 && os.getGetNewTask()) {
                 cycle++;
+                // System.out.println("No tasks to execute");
                 continue;
             }
             
@@ -114,8 +136,7 @@ public class Main {
             //the dispacher get a task from the queue and put it in the cpu and remove it form the queue
 
             cpu.addTask(task_to_run);
-            
-            cpu_task = cpu.run();
+            cpu_task = cpu.run(cycle);
             os.putToQueue(cpu_task);     
             cycle++;
         }
@@ -131,6 +152,7 @@ public class Main {
             System.out.println("Task still in IO Queue: "+os.getIOqueueTasks());
             System.out.println("----------------------------------------------");
         }
+        os.printRunDiagram(cycle);
         // os.printDoneTasks();
     }
 }

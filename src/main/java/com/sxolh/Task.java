@@ -12,9 +12,10 @@ public class Task {
     private int first_responce_time;
     private boolean first_responce = false;
     private int priority;
-    private ArrayList<Integer> io;
+    private ArrayList<Integer> io = new ArrayList<Integer>();
     private boolean done = false;
     private int state = 0;
+    private ArrayList<Integer> run_cycles = new ArrayList<Integer>();
 
     Task(int task_id, int arival_time, int execution_time, int priority, ArrayList<Integer> io){
         this(arival_time, execution_time, priority, io);
@@ -31,8 +32,9 @@ public class Task {
         this.io = io;
     }
 
-    int execute(){
-        System.out.println("Running task: "+this.task_id);
+    int execute(int cycle){
+        run_cycles.add(cycle);
+        System.out.println("Running task: "+this.task_id+" Cycle: "+cycle);
         // if(waiting_time != 0) waiting_time -= 1; //Because before this execute the update but for this task is not supposed
         if (!first_responce) {
             this.first_responce_time = waiting_time;
@@ -65,6 +67,8 @@ public class Task {
     void setTaskDone(){this.done = true;}
     void setState(int state){this.state = state;}
     boolean getTaskDone(){return this.done;}
+    int getId(){return this.task_id;}
+    ArrayList<Integer> getRunCycles(){return this.run_cycles;}
 
     @Override
     public String toString(){
