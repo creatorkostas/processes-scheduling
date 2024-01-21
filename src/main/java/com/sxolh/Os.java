@@ -109,7 +109,7 @@ public class Os{
     }
 
     void printRunDiagram(int endCycle){
-        System.out.println("\n\nDO NOT TAKE THIS DIAGRAM LITERALLY THERE IS UNDER DEVELOPMENT");
+        System.out.println("\n\nDO NOT TAKE THIS DIAGRAM LITERALLY IT IS UNDER DEVELOPMENT");
         try {
             int num = getNumOfDoneTasks();
             ArrayList<String> printList = new ArrayList<String>();
