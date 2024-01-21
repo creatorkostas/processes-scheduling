@@ -24,7 +24,7 @@ public class Os{
         if(task.getFirstResponce()) {
             getNewTask=true;
             int num_of_queues = queues.getNumOfQueues();
-            int priority = task.getPriority()-1;
+            int priority = task.getPriority();
             int valid_priority = priority;
             if(priority>num_of_queues){valid_priority = num_of_queues;}
             if(priority<=0){valid_priority = 0;}
@@ -101,6 +101,45 @@ public class Os{
             for (Task done_task : done_tasks) {
                 System.out.println("---------------------------------------------------");
                 System.out.println(done_task.toString());
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No task is done!");
+            return;
+        }
+    }
+
+    void printRunDiagram(int endCycle){
+        System.out.println("\n\nDO NOT TAKE THIS DIAGLE LITERALLY THERE IS UNDER DEVELOPMENT");
+        try {
+            int num = getNumOfDoneTasks();
+            ArrayList<String> printList = new ArrayList<String>();
+            String seperator = "";
+            String time = "";
+            seperator += "------------------------------------------------------------------------------------------";
+            for (int i=0;i<num;i++) {
+                printList.add(String.valueOf(done_tasks.get(i).getId()) + " |");
+            }
+            
+            for (int j=0;j<endCycle;j++){
+                for (int i=0;i<num;i++) {
+                    Task temp = done_tasks.get(i);
+                    if( temp.getRunCycles().contains(j)){ 
+                        String s_temp = printList.get(i); 
+                        printList.remove(s_temp);
+                        s_temp += "X";
+                        printList.add(s_temp);
+                    }else{
+                        String s_temp = printList.get(i); 
+                        printList.remove(s_temp);
+                        s_temp += " ";
+                        printList.add(s_temp);
+                    }
+                }
+                
+            }
+            for (String print_String : printList) {
+                System.out.println(seperator);
+                System.out.println(print_String);
             }
         } catch (NullPointerException e) {
             System.out.println("No task is done!");
