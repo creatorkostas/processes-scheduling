@@ -8,7 +8,7 @@ public class IOQueue extends Queue {
         Task temp = null;
         if (this.getNumOfTask() != 0) {
             int i = new Random().nextInt(100);
-            if(i<=70) temp = this.getFromQueue(0);
+            if(i<=90) temp = this.getFromQueue(0);
         }
         this.updateWaitingTime();
         return temp;
